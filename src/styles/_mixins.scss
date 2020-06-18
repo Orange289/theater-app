@@ -1,0 +1,112 @@
+@function css-lock-value($minf, $maxf, $unit: px, $minw: $min-width, $maxw: $container__max-width) {
+  @return calc(#{$minf}#{$unit} + (#{$maxf} - #{$minf}) * ((100vw - #{$minw}px) / (#{$maxw} - #{$minw})));
+}
+
+@mixin css-lock($minf, $maxf, $property: font-size, $unit: px, $minw: $min-width, $maxw: $container__max-width, $no_max_media: false) {
+  #{$property}: css-lock-value($minf, $maxf, $unit, $minw, $maxw);
+
+  // @media (max-width: #{$minw}#{$unit}) {
+  @if $no_max_media == false {
+    @media (max-width: #{$minw}px) {
+      #{$property}: #{$minf}#{$unit};
+    }
+  }
+  // @media (min-width: #{$maxw}#{$unit}) {
+  @media (min-width: #{$maxw}px) {
+    #{$property}: #{$maxf}#{$unit};
+  }
+}
+
+@mixin media-css-lock($minf, $middle, $maxf, $property: font-size, $unit: px, $minw: $min-width, $middlew: $tablet-width, $maxw: $container__max-width) {
+  @include css-lock($minf, $middle,  $property, $unit, $minw, $middlew);
+  @include bp(tablet) {
+    @include css-lock($middle, $maxf,  $property, $unit, $middlew, $maxw, true);
+  }
+}
+
+@mixin media-retina () {
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+@mixin absolute($t, $r, $b, $l) {
+  position: absolute;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+
+@mixin btn(
+  $color: $color__primary, $color-hover: $color__secondary, $border-color: $color__primary, $padding-side: 42px, $height: 45px, $padding-top: 10px, $padding-bottom: 13px) {
+
+  color: $color;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: $height;
+  padding: $padding-top $padding-side $padding-bottom;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  text-align: center;
+  border: 2px solid $border-color;
+  cursor: pointer;
+  background: transparent;
+  z-index: 1;
+  transition: 0.5s ease-in-out;
+
+  &:before {
+    content: '';
+    @include absolute(0,-20px,0,0);
+    border-right: 20px solid transparent;
+    border-top: $height solid $border-color;
+    transform: translateX(-100%);
+    transition: 0.5s ease-in-out;
+    z-index: -1;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &[disabled] {
+    opacity: .8;
+    cursor: default;
+  }
+
+  &:not([disabled]):hover {
+    color: $color-hover;
+    text-decoration: none;
+
+    &:before {
+      transform: translateX(0);
+    }
+  }
+
+  &.loading {
+    color: #fff;
+    background-color: $color__primary;
+    background-image: linear-gradient(135deg,rgba(255,255,255,.45) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.45) 50%,rgba(255,255,255,.45) 75%,transparent 75%,transparent);
+    animation: ca-button-loading 2s linear infinite;
+    background-size: 54px 54px;
+    cursor: default;
+
+    &:before {
+      display: none;
+    }
+
+    &:hover {
+      color: #fff;
+      cursor: default;
+    }
+  }
+}

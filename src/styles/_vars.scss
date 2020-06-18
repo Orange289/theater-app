@@ -1,0 +1,77 @@
+// Global values
+// --------------------------------------------------
+$images-dir: 'i/dest/'; // Used by background-retina mixin
+//
+// Responsitive layout
+// -------------------------
+// 320->mobile->1024->tablet->1230->desktop
+$min-width: 320;
+
+$mobile-width: 768;
+
+$tablet-width: 1024;
+
+$container__max-width: 1280;
+
+$max-width: 1920;
+
+$breakpoints: ( // new names for best understanding meaning
+  'mobile--small': 320px,
+  'mobile': 768px,
+  'tablet': 1024px,
+  'desktop': 1280px,
+  'desktop--big': 1920px,
+  'desktop--superbig': 2400px
+);
+
+$padding-base: 20px;
+
+$container__padding--tablet: 55px;
+
+$border-radius-base: 30px;
+
+// Typography
+// --------------------------------------------------
+$font-size-base: 15px;
+
+$font-size-title: 40px;
+
+$font-size-btn: 14px;
+
+$line-height-base: 1.5;
+// --------------------------------------------------
+
+$font-family-base: 'Lato', Helvetica, sans-serif;
+
+// --------------------------------------------------
+$transparent: rgba(255,255,255,0);
+
+$color__white: #fff;
+
+$color__black: #000;
+
+$color__dark-gray: #293238;
+
+$color__violet: #564797;
+
+$color__blue: #42e8e0;
+
+$color__gray: #ccc;
+
+$color__gray-light: #eee;
+
+$color__pink: #ef03b0;
+
+$color__orange: #feaa11;
+
+$color__green: #26e326;
+
+$color__text: $color__dark-gray;
+
+$color__primary: $color__violet;
+
+$color__secondary: $color__blue;
+
+$color__link: $color__secondary;
+
+

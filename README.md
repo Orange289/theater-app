@@ -1,8 +1,13 @@
-# theater-app-new
+# theater-app
 
 ## Project setup
 ```
 npm install
+```
+
+### Runs test server
+```
+npm run mock
 ```
 
 ### Compiles and hot-reloads for development
